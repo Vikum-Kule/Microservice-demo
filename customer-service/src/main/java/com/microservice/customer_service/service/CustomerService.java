@@ -45,4 +45,25 @@ public class CustomerService {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
+
+    public ResponseEntity<CustomerDTO> findCustomerById(Long id) {
+        try {
+            Customer customer = customerRepository.findById(id).orElse(null);
+
+            if (customer == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+
+            CustomerDTO response = CustomerDTO.builder()
+                                              .customerId(customer.getCustomerId())
+                                              .email(customer.getEmail())
+                                              .firstName(customer.getFirstName())
+                                              .lastName(customer.getLastName())
+                                              .build();
+
+            return new ResponseEntity<>(response, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
 }

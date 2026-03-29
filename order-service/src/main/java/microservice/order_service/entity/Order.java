@@ -12,10 +12,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "orders")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String orderId;
+    private Long orderId;
     private Long customerId; // keep the customer reference only
 
     /*
@@ -34,6 +35,8 @@ public class Order {
 
     @Column(nullable = false)
     private LocalDate deliveryDate;
+
+    private Double total;
 
 
 }

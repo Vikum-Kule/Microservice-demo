@@ -3,6 +3,7 @@ package microservice.product_service.controller;
 import microservice.product_service.entity.Product;
 import microservice.product_service.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +15,12 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    Environment environment;
+
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
+    public ResponseEntity<Product> getProductById(@PathVariable("id") Long id) {
+        System.out.println(environment.getProperty("local.server.port"));
         return productService.getProductById(id);
     }
 
